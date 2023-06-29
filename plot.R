@@ -8,11 +8,18 @@ cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442",
                 "#0072B2", "#D55E00", "#CC79A7")
 palette(cbbPalette)
 
-
 g = ggplot(filter_d, aes(x = t , y = H)) +
   geom_line() + 
   xlab('Date') +
   ylab('Numer of Hospital Beds Needed') +
-  ggtitle('Hospital Beds Needed: July to December 2020')
+  ggtitle('Hospital Beds Needed: July to December 2020') #+
+  #scale_x_date(date_breaks = "1 month")
 
 print(g)
+
+
+g <- ggplot(data = dDate) +
+  geom_line(mapping = aes(x = as.Date(t), y = H)) +
+  scale_x_date(breaks = as.Date(unique(dDate$t)),
+               labels = month.abb) +
+  scale_color_manual(values = cbbPalette)
